@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->integer('loyalty_points')->default(0);
+            $table->foreignId('loyalty_level_id')->nullable()->constrained('loyalty_levels');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
