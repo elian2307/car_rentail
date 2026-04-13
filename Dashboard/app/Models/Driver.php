@@ -9,4 +9,9 @@ class Driver extends Model
     protected $fillable = [
         'user_id', 'license_number', 'license_img',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
