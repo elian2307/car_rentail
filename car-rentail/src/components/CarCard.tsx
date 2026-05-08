@@ -1,4 +1,5 @@
-export default function CarCard(){
+import type Car from "../interfaces/Car";
+export default function CarCard({ data }: { data: Car }) {
     return (
         <div className="car-card">
                             <div className="d-flex justify-content-between align-items-center mb-3">
@@ -15,8 +16,8 @@ export default function CarCard(){
                                 className="car-img" alt="Audi A4" />
                             <div className="d-flex justify-content-between align-items-end mt-3">
                                 <div>
-                                    <h5 className="fw-bold mb-1">Audi A4</h5>
-                                    <div className="text-muted fs-sm">2.0 TFSI Sport (249 hp, Quattro)</div>
+                                    <h5 className="fw-bold mb-1">{data.brand.name} {data.model} </h5>
+                                    <div className="text-muted fs-sm">{data.year} • {data.color}</div>
                                 </div>
                                 <div className="text-end">
                                     <span className="fs-5 fw-bold">$24.59</span><span className="text-muted fs-sm"> / hour</span>

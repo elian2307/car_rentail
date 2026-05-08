@@ -1,23 +1,40 @@
+import axios from "axios";
 import CarCard from "../components/CarCard";
 import FiltersPanel from "../components/FiltersPanel";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
+import { useEffect, useState } from "react";
 
 export default function Dashboard() {
+    const [cars, setCars] = useState([]);
+    const getCars = () => {
+        axios.get("http://localhost:8000/api/cars")
+            .then((response) => {
+                console.log(response.data.data);
+                setCars(response.data.data);
+            })
+            .catch(error => {
+                console.error("Error fetching cars:", error);
+            });
+    };
+    useEffect(() => {
+        getCars();
+    }, []);
+
     return (<>
         <div className="d-flex vh-100 overflow-hidden">
             {/*  Sidebar Navigation  */}
-            {/* <Sidebar /> */}
+            <Sidebar />
 
             {/*  Main Content Area  */}
             <div className="flex-grow-1 d-flex flex-column overflow-hidden h-100">
                 {/*  Topbar  */}
-                {/* <Topbar/> */}
+                <Topbar/>
 
                 {/*  Content Split  */}
                 <div className="d-flex flex-grow-1 overflow-hidden">
                     {/*  Filters Panel  */}
-                    {/* <FiltersPanel/> */}
+                    <FiltersPanel/>
 
                     {/*  Vehicles List Panel  */}
                     <div className="vehicles-panel p-4 h-100 flex-shrink-0 position-relative">
@@ -35,12 +52,9 @@ export default function Dashboard() {
                         </div>
 
                         {/*  CAR 1  */}
-                        <CarCard />
-
-                        {/*  CAR 2  */}
-                        <CarCard />
-
-                        {/*  CAR 3  */}
+                        {cars.map((item) => (
+                            <CarCard data={item}/>
+                        ))}
                         
                     </div>
 
