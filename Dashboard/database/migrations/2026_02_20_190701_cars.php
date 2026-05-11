@@ -22,7 +22,10 @@ return new class extends Migration
             $table->decimal('lat', 10, 8)->nullable();
             $table->decimal('lng', 11, 8)->nullable();
             $table->boolean('is_premium')->default(false);
+            $table->decimal('rating', 3, 2)->nullable();
             $table->integer('rental_count')->default(0);
+            $table->decimal('rental_price_per_day', 8, 2)->default(0);
+            $table->string('image_path')->nullable();
             $table->enum('status', ['available', 'rented', 'maintenance', 'retaired'])->default('available');
             $table->timestamps();
         });

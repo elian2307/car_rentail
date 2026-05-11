@@ -21,5 +21,8 @@ class BrandsSeeder extends Seeder
         $dato->name = 'Honda';
         $dato->img = 'honda.png';
         $dato->save();
+        DB::table('brands')->insert([
+            ['name' => 'Tesla', 'img' => 'tesla.png', 'created_at' => now(), 'updated_at' => now()]
+        ]);
     }
 }

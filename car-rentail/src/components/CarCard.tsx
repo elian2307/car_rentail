@@ -1,5 +1,6 @@
 import type Car from "../interfaces/Car";
 export default function CarCard({ data }: { data: Car }) {
+    const API_ASSETS_URL = import.meta.env.VITE_API_ASSETS_URL;
     return (
         <div className="car-card">
                             <div className="d-flex justify-content-between align-items-center mb-3">
@@ -7,20 +8,20 @@ export default function CarCard({ data }: { data: Car }) {
                                     <div className="text-dark"><i className="fa-solid fa-person-walking text-muted me-2"></i>120m
                                         <span className="text-muted fw-normal">(4 min)</span>
                                     </div>
-                                    <div className="text-warning"><i className="fa-solid fa-star"></i> <span className="text-dark">4.7
-                                        <span className="text-muted fw-normal">(109)</span></span></div>
+                                    <div className="text-warning"><i className="fa-solid fa-star"></i> <span className="text-dark">{data.rating?.toFixed(1) || 'N/A'}
+                                        <span className="text-muted fw-normal">({data.rental_count})</span></span></div>
                                 </div>
                                 <i className="fa-regular fa-heart text-muted fs-5 cursor-pointer hover-danger"></i>
                             </div>
-                            <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&q=80&w=800"
-                                className="car-img" alt="Audi A4" />
+                            <img src={`${API_ASSETS_URL}/cars/${data.image_path}`}
+                                className="car-img" alt={`${data.brand.name} ${data.model}`} />
                             <div className="d-flex justify-content-between align-items-end mt-3">
                                 <div>
                                     <h5 className="fw-bold mb-1">{data.brand.name} {data.model} </h5>
                                     <div className="text-muted fs-sm">{data.year} • {data.color}</div>
                                 </div>
                                 <div className="text-end">
-                                    <span className="fs-5 fw-bold">$24.59</span><span className="text-muted fs-sm"> / hour</span>
+                                    <span className="fs-5 fw-bold">${data.rental_price_per_day.toFixed(2)}</span><span className="text-muted fs-sm"> / hour</span>
                                 </div>
                             </div>
                         </div>

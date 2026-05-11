@@ -4,22 +4,25 @@ import FiltersPanel from "../components/FiltersPanel";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import { useEffect, useState } from "react";
+import MapComponent from "../components/MapComponent";
 
 export default function Dashboard() {
     const [cars, setCars] = useState([]);
-    const getCars = () => {
-        axios.get("http://localhost:8000/api/cars")
-            .then((response) => {
-                console.log(response.data.data);
-                setCars(response.data.data);
-            })
-            .catch(error => {
-                console.error("Error fetching cars:", error);
-            });
-    };
+    const API_URL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
+        const getCars = () => {
+            axios.get(`${API_URL}/cars`)
+                .then((response) => {
+                    console.log(response.data.data);
+                    setCars(response.data.data);
+                })
+                .catch(error => {
+                    console.error("Error fetching cars:", error);
+                });
+        };
         getCars();
-    }, []);
+    }, [API_URL]);
 
     return (<>
         <div className="d-flex vh-100 overflow-hidden">
@@ -40,7 +43,7 @@ export default function Dashboard() {
                     <div className="vehicles-panel p-4 h-100 flex-shrink-0 position-relative">
                         <div className="d-flex justify-content-between align-items-center mb-4 sticky-top bg-light"
                             style={{ top: '-1.5rem', paddingTop: '1.5rem', marginTop: '-1.5rem', zIndex: '10' }}>
-                            <h4 className="fw-bold mb-2">48 vehicles to rent</h4>
+                            <h4 className="fw-bold mb-2">{cars.length} vehicles to rent</h4>
                             <div className="d-flex align-items-center gap-4 text-muted fs-sm">
                                 <div className="fw-medium text-dark cursor-pointer d-flex align-items-center gap-2">
                                     Closest to me <i className="fa-solid fa-chevron-down"></i>
@@ -92,19 +95,10 @@ export default function Dashboard() {
                         </div>
 
                         {/*  Mock map elements (route and pins)  */}
-                        <svg className="position-absolute w-100 h-100 top-0 start-0 pointer-events-none z-0">
-                            {/*  Simulated Route Line  */}
-                            <path d="M 280 480 L 320 450 L 370 460 L 450 380 L 520 390 L 580 250 L 680 280 L 720 220"
-                                stroke="#1a1a1a" strokeWidth="4" fill="none" strokeLinejoin="round"
-                                strokeLinecap="round" />
-                        </svg>
+                        <MapComponent />
 
                         {/*  Route start and end markers  */}
-                        <div className="position-absolute bg-success rounded-circle border border-white border-2 z-1 shadow"
-                            style={{ width: '14px', height: '14px', top: '473px', left: '273px' }}></div>
-                        <div className="position-absolute bg-dark rounded-circle border border-white border-2 z-1 shadow"
-                            style={{ width: '18px', height: '18px', top: '211px', left: '711px' }}></div>
-
+                        
                         {/*  Time indicator on route  */}
                         <div className="position-absolute bg-white px-2 py-1 rounded-pill shadow-sm text-dark fs-xs fw-bold z-1 d-flex align-items-center gap-1 border"
                             style={{ top: '360px', right: '10%' }}>

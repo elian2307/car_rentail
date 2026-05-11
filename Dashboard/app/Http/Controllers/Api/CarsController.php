@@ -43,7 +43,10 @@ class CarsController extends Controller
             'lat' => 'required|numeric|between:-90,90',
             'lng' => 'required|numeric|between:-180,180',
             'is_premium' => 'required|boolean',
+            'rating' => 'nullable|numeric|between:0,5',
             'rental_count' => 'required|integer|min:0',
+            'rental_price_per_day' => 'required|numeric|min:0',
+            'image_path' => 'nullable|string|max:255',
             'status' => 'required|string|max:255',
         ]);
         $car = new Car();
@@ -56,7 +59,10 @@ class CarsController extends Controller
         $car->lat = $validate['lat'];
         $car->lng = $validate['lng'];
         $car->is_premium = $validate['is_premium'];
+        $car->rating = $validate['rating'];
         $car->rental_count = $validate['rental_count'];
+        $car->rental_price_per_day = $validate['rental_price_per_day'];
+        $car->image_path = $validate['image_path'];
         $car->status = $validate['status'];
         $car->save();
         return response()->json([
@@ -108,6 +114,8 @@ class CarsController extends Controller
             'lng' => 'required|numeric|between:-180,180',
             'is_premium' => 'required|boolean',
             'rental_count' => 'required|integer|min:0',
+            'rental_price_per_day' => 'required|numeric|min:0',
+            'image_path' => 'nullable|string|max:255',
             'status' => 'required|string|max:255',
         ]);
         $car = Car::find($id);
@@ -122,6 +130,8 @@ class CarsController extends Controller
             $car->lng = $validate['lng'];
             $car->is_premium = $validate['is_premium'];
             $car->rental_count = $validate['rental_count'];
+            $car->rental_price_per_day = $validate['rental_price_per_day'];
+            $car->image_path = $validate['image_path'];
             $car->status = $validate['status'];
             $car->save();
             return response()->json([

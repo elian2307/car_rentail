@@ -12,6 +12,9 @@ export default interface Car{
     lat: number;
     lng: number;
     is_premium: boolean;
+    rating: number | null;
     rental_count: number;
+    rental_price_per_day: number;
+    image_path: string | null;
     status: string;
 }

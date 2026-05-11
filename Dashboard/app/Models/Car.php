@@ -8,7 +8,7 @@ class Car extends Model
 {
     protected $fillable = [
         'brand_id', 'model', 'year', 'color', 'license_plate',
-        'mileage', 'lat', 'lng', 'is_premium', 'rental_count', 'status'
+        'mileage', 'lat', 'lng', 'is_premium', 'rating', 'rental_count', 'rental_price_per_day', 'image_path', 'status'
     ];
 
     public function brand()
